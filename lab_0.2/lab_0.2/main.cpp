@@ -1,11 +1,10 @@
 #include <iostream>
 #include <conio.h>
-#define maxN 995
+#define maxN 1000
 
 int SumDigits(int i)
 {
 	int sum = 0;
-	// цикл продолжается до тех пор, пока число не станет равным 0
 	while (i != 0)
 	{
 		sum += i % 10;
