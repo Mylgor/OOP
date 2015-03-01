@@ -4,6 +4,14 @@
 
 using namespace std;
 
+int StringToInt(const char * str, bool & err)
+{
+	char * pLastChar = NULL;
+	int param = strtol(str, &pLastChar, 10);
+	err = ((*str == '\0') || (*pLastChar != '\0'));
+	return param;
+}
+
 void Fib(const int &limit)
 {
 	int previous, current, next , i;
@@ -16,6 +24,11 @@ void Fib(const int &limit)
 		next = current + previous;
 		previous = current;
 		current = next;
+		if (next < 0)
+		{
+			cout << endl << "error" << endl;
+			break;
+		}
 		if (next <= limit)
 			cout << ", ";
 		else
@@ -31,15 +44,22 @@ int main(int argc, char* argv[])
 {
 	if (argc != 2)
 	{
-		cout << "input error";
+		cout << "input error" << endl;
 		return 0;
 	}
 
-	int numb = atoi(argv[1]);
+	bool error;
+	int numb = StringToInt(argv[1], error);
+	if (error)
+	{
+		cout << "Argument error" << endl;
+		return 1;
+	}
+
 	if (numb <= 0)
 	{
 		cout << "Number must be greater than 0" << endl;
-		return 0;
+		return 1;
 	}
 
 	Fib(numb);
