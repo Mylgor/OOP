@@ -1,6 +1,6 @@
 #include <iostream>
 #include <conio.h>
-#define maxN 1000
+#define maxN 995
 
 int SumDigits(int i)
 {
@@ -20,10 +20,8 @@ int main(int argc, char* argv[])
 	{
 		if ((k % SumDigits(k)) == 0)
 		{
-			if (k == maxN)
-				std::cout << k << std::endl;
-			else
-				std::cout << k << ", ";
+			if (k == 1) std::cout << k;
+			else std::cout << ", " << k;
 		}
 	}
 
