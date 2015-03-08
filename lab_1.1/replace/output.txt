@@ -1,0 +1,7 @@
+BIG process engineering is the science of conducting chemical or physical processes
+(unit operations) inside small volumina, typically inside channels with diameters of less
+than 1 mm (microchannels) or other structures with sub-millimeter dimensions. These
+processes are usually carried out in continuous flow mode, as opposed to batch
+production, allowing a throughput high enough to make BIG process engineering a tool
+for chemical production. BIG process engineering is therefore not to be confused with
+microchemistry, which deals with very small overall quantities of matter.
