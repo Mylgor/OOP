@@ -17,7 +17,7 @@ BOOST_AUTO_TEST_CASE(OrdinaryNumbers)
 
 BOOST_AUTO_TEST_CASE(NegativeNumbers)
 {
-	BOOST_CHECK(CheckingVector({ 1, 2, 3, 4 }, { 4, 8, 12, 16 }));
+	BOOST_CHECK(CheckingVector({ -1, -2, -3, -4 }, { 4, 8, 12, 16 }));
 }
 
 BOOST_AUTO_TEST_CASE(EmptyVectorProducesEmptyVector)
