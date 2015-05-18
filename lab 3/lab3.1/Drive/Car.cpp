@@ -1,119 +1,152 @@
 #include "stdafx.h"
 #include "Car.h"
-#include <iostream>
+
+bool CCar::InSpeedRange(int gear, int speed)
+{
+	if ((speed >= range[GearBox(gear)].minSpeed) && (speed <= range[GearBox(gear)].maxSpeed))
+		return true;
+	return false;
+}
 
 CCar::CCar()
 {
-	range[Speeds::reverse] = {0, 20};
-	range[Speeds::neutral] = { 0, 150 };
-	range[Speeds::first] = { 0, 30 };
-	range[Speeds::second] = { 20, 50 };
-	range[Speeds::third] = { 30, 60 };
-	range[Speeds::four] = { 40, 90 };
-	range[Speeds::five] = { 50, 150 };
+	range[GearBox::reverse] = {0, 20};
+	range[GearBox::neutral] = { 0, 150 };
+	range[GearBox::first] = { 0, 30 };
+	range[GearBox::second] = { 20, 50 };
+	range[GearBox::third] = { 30, 60 };
+	range[GearBox::four] = { 40, 90 };
+	range[GearBox::five] = { 50, 150 };
 
-	conditionEngine = false;
-	conditionMotion = Condit::stop;
-	targetSpeed = 0;
-	transmission = Speeds::neutral;
+	m_isEngineOn = false;
+	m_conditionMotion = StateOfMotion::stop;
+	m_speed = 0;
+	m_transmission = GearBox::neutral;
 }
 
 bool CCar::TurnOnEngine()
 {
-	if (!conditionEngine)
+	if (!m_isEngineOn)
 	{
-		if (transmission == Speeds::neutral)
+		if (m_transmission == GearBox::neutral)
 		{
-			conditionEngine = true;
-			conditionMotion = Condit::stop;
-			targetSpeed = 0;
-			transmission = Speeds::neutral;
+			m_isEngineOn = true;
+			m_conditionMotion = StateOfMotion::stop;
+			m_speed = 0;
+			m_transmission = GearBox::neutral;
 			return true;
 		}
 		else
+		{
 			cout << "Transmission must be on NEUTRAL" << endl;
+		}
+	}
+	else
+	{
+		cout << "Engine is already working" << endl;
 	}
 	return false;
 }
 
 bool CCar::TurnOffEngine()
 {
-	if (conditionEngine && targetSpeed == 0 && conditionMotion == Condit::stop)
+	if (m_isEngineOn)
 	{
-		conditionEngine = false;
-		return true;
+		if ((m_speed == 0) && (m_conditionMotion == StateOfMotion::stop))
+		{
+			m_isEngineOn = false;
+			return true;
+		}
+		else
+		{
+			cout << "Speed = 0 and car must be stoped" << endl;
+		}
+	}
+	else
+	{
+		cout << "Engine is already turn off" << endl;
 	}
 	return false;
 }
 
 bool CCar::SetGear(int gear)
 {
-		if (gear >= -1 && gear <= 5)
+		if ((gear >= -1) && (gear <= 5))
 		{
-			if ((targetSpeed >= range[Speeds(gear)][0] && targetSpeed <= range[Speeds(gear)][1]) || !conditionEngine)
+			if (InSpeedRange(gear, m_speed))
 			{
-				if (gear == -1 && (transmission == Speeds::neutral || (transmission == Speeds::first && targetSpeed == 0) || !conditionEngine)) // переключние на заднюю
+				if (gear == -1 && (m_speed == 0) && ((m_transmission == GearBox::neutral) || (m_transmission == GearBox::first))) // переключние на заднюю
 				{
-					transmission = Speeds(gear);
+					m_transmission = GearBox(gear);
 					return true;
 				}
-				if (transmission == Speeds::reverse && ((gear == 1 && targetSpeed == 0) || gear == 0 || gear == -1)) // переключение с задней
+				if ((m_transmission == GearBox::reverse) && ((gear == 1 && m_speed == 0) || (gear == 0) || (gear == -1))) // переключение с задней
 				{
-					transmission = Speeds(gear);
+					m_transmission = GearBox(gear);
 					return true;
 				}
-				if (gear != -1 && transmission != Speeds::reverse && conditionMotion != Condit::back)
+				if ((gear != -1) && (m_transmission != GearBox::reverse) && (m_conditionMotion != StateOfMotion::back))
 				{
-					transmission = Speeds(gear);
+					m_transmission = GearBox(gear);
 					return true;
 				}
 			}
+			else
+			{
+				cout << "Gear is unsuitable for your speed" << endl;
+			}
 		}
 		else
+		{
 			cout << "Incorect gear ( great >= -1 and great <= 5 )" << endl;
+		}
 	return false;
 }
 
 bool CCar::SetSpeed(int speed)
 {
-	if (conditionEngine || speed == 0)
+	if ((m_isEngineOn) || (speed <= m_speed))
 	{
-		if (speed >= range[transmission][0] && speed <= range[transmission][1] && (!transmission == Speeds::neutral || speed == 0))
+		if ((InSpeedRange(m_transmission, speed)) && ((!m_transmission == GearBox::neutral) || (speed <= m_speed)))
 		{
 			if (speed != 0)
 			{
-				if (transmission > 0)
-					conditionMotion = Condit::forward;
+				if (m_transmission >= 0)
+					m_conditionMotion = StateOfMotion::forward;
 				else
-					conditionMotion = Condit::back;
+					m_conditionMotion = StateOfMotion::back;
 			}
 			else
 			{
-				conditionMotion = Condit::stop;
+				m_conditionMotion = StateOfMotion::stop;
 			}
-			targetSpeed = speed;
+			m_speed = speed;
 			return true;
 		}
+	}
+	else
+	{
+		cout << "Your engine is off" << endl;
 	}
 	return false;
 }
 
-void CCar::Info()
+bool CCar::GetCondEngine() const
 {
-	cout << boolalpha;
-	switch (conditionMotion)
-	{
-	case -1:
-		cout << "Condition Motion: " << "goes back" << endl;
-		break;
-	case 0:
-		cout << "Condition Motion: " << "is worth" << endl;
-		break;
-	case 1:
-		cout << "Condition Motion: " << "goes forward" << endl;
-		break;
-	}
-	cout << "Condition Engine: " << conditionEngine << endl;
-	cout << "Speed: " << targetSpeed << endl;
-	cout << "Gear: " << transmission << endl;
+	return m_isEngineOn;
+}
+
+int CCar::GetGrear() const
+{
+	return m_transmission;
+}
+
+int CCar::GetSpeed() const
+{
+	return m_speed;
+}
+
+int CCar::GetStateOfMotion() const
+{
+	return m_conditionMotion;
 }

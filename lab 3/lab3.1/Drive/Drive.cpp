@@ -3,7 +3,8 @@
 
 #include "stdafx.h"
 #include "Car.h"
-#include <iostream>
+
+map<CCar::GearBox, CCar::SpeedRange> CCar::range;
 
 int RetAnsw()
 {
@@ -22,10 +23,30 @@ int RetAnsw()
 	return answer;
 }
 
+void Info(CCar const &drive)
+{
+	cout << boolalpha;
+	int condMotion = drive.GetStateOfMotion();
+	switch (condMotion)
+	{
+	case -1:
+		cout << "Condition Motion: " << "goes back" << endl;
+		break;
+	case 0:
+		cout << "Condition Motion: " << "is worth" << endl;
+		break;
+	case 1:
+		cout << "Condition Motion: " << "goes forward" << endl;
+		break;
+	}
+	cout << "Condition Engine: " << drive.GetCondEngine() << endl;
+	cout << "Speed: " << drive.GetSpeed() << endl;
+	cout << "Gear: " << drive.GetGrear() << endl;
+}
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 	cout << "Welcome to the driving simulator" << endl;
-
 	CCar driver;
 
 	int doIt = 0, gear, speed;
@@ -35,24 +56,21 @@ int _tmain(int argc, _TCHAR* argv[])
 		switch (doIt)
 		{
 		case 1:
-			driver.Info();
-			cout << endl;
+			Info(driver);
 			break;
 
 		case 2:
 			if (driver.TurnOnEngine())
 				cout << "the engine is running" << endl;
 			else
-				cout << "the engine is already running" << endl;
-			cout << endl;
+				cout << "the engine can't be running" << endl;
 			break;
 
 		case 3:
 			if (driver.TurnOffEngine())
 				cout << "the engine is off" << endl;
 			else
-				cout << "the engine can not be switched off ( car must be stoped, engine is running and transmition = neutral )" << endl;
-			cout << endl;
+				cout << "the engine can't be switched off" << endl;
 			break;
 
 		case 4:
@@ -62,7 +80,6 @@ int _tmain(int argc, _TCHAR* argv[])
 				cout << "the gear is change" << endl;
 			else
 				cout << "the gear can't be change" << endl;
-			cout << endl;
 			break;
 
 		case 5:
@@ -72,9 +89,9 @@ int _tmain(int argc, _TCHAR* argv[])
 				cout << "the speed is change" << endl;
 			else
 				cout << "the speed can't be change" << endl;
-			cout << endl;
 			break;
 		}
+		cout << endl;
 	}
 
 	return 0;

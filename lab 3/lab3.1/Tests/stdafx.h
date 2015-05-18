@@ -10,6 +10,15 @@
 #include <stdio.h>
 #include <tchar.h>
 
+#include <stdio.h>
+#include <tchar.h>
+#include <string>
+#include <map>
+#include <vector>
+
+#include <iostream>
+using namespace std;
+
 
 #define BOOST_TEST_MODULE TheApplicationTestModule
 #define BOOST_TEST_INCLUDED
