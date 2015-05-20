@@ -80,11 +80,16 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PreBuildEvent>
-      <Command>"$(TargetPath)"</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <PreLinkEvent>
-      <Command>"$(TargetPath)"</Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
+    <PostBuildEvent>
+      <Command>"$(TargetPath)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
