@@ -65,8 +65,8 @@ bool CCRectangle::Intersect(CCRectangle const& other)
 
 	if (!((m_coordinate.left > rightOther) || (m_coordinate.right < leftOther) || (m_coordinate.top > bottomOther) || (m_coordinate.bottom < topOther)))
 	{
-		m_coordinate.left > leftOther ? m_coordinate.left = m_coordinate.left : m_coordinate.left = leftOther;
-		m_coordinate.top > topOther ? m_coordinate.top = m_coordinate.top : m_coordinate.top = topOther;
+		m_coordinate.left > leftOther ? m_coordinate.left : m_coordinate.left = leftOther;
+		m_coordinate.top > topOther ? m_coordinate.top : m_coordinate.top = topOther;
 
 		m_coordinate.right < rightOther ? m_width = m_coordinate.right : m_width = rightOther;
 		m_coordinate.bottom < bottomOther ? m_height = m_coordinate.bottom : m_height = bottomOther;
@@ -93,4 +93,70 @@ void CCRectangle::Update()
 
 CCRectangle::~CCRectangle()
 {
+}
+
+
+
+
+CCanvas::CCanvas(unsigned width, unsigned height)
+{
+	m_height = height;
+	m_width = width;
+	for (int i = 0; i < m_height; i++)
+	{
+		for (int j = 0; j < m_width; j++)
+		{
+			m_canvas.push_back(' ');
+		}
+	}
+}
+
+unsigned CCanvas::GetWidth()const
+{
+	return m_width;
+}
+
+unsigned CCanvas::GetHeight()const
+{
+	return m_height;
+}
+
+void CCanvas::Clear(char code)
+{
+	for (int i = 0; i < m_height; i++)
+	{
+		for (int j = 0; j < m_width; j++)
+		{
+			if ((code < 0) && (code > ' '))
+			{
+				m_canvas[i * m_width + j] = ' ';
+			}
+		}
+	}
+}
+
+void CCanvas::SetPixel(int x, int y, char code)
+{
+	m_canvas[y * m_width + x] = code;
+}
+
+char CCanvas::GetPixel(int x, int y)const
+{
+	if ((x < 0) || (x > m_width) || (y < 0) || (y > m_height))
+	{
+		return ' ';
+	}
+	return m_canvas[y * m_width + x];
+}
+
+void CCanvas::Write(std::ostream & ostream)const
+{
+	for (int i = 0; i < m_height; i++)
+	{
+		for (int j = 0; j < m_width; j++)
+		{
+			ostream << m_canvas[i * m_width + j];
+		}
+		ostream << std::endl;
+	}
 }

@@ -117,6 +117,30 @@ void PrintDataRectangle(CCRectangle const &rect)
 	cout << "\tPerimeter: " << rect.GetPerimeter() << endl;
 }
 
+void SetWidthHeightForCanv(CCRectangle const &rect1, CCRectangle const &rect2, int &width, int &height)
+{
+	int left1, right1, top1, bottom1;
+	int left2, right2, top2, bottom2;
+	rect1.GetCoordinate(left1, top1, right1, bottom1);
+	rect2.GetCoordinate(left2, top2, right2, bottom2);
+
+	width = right1 < right2 ? right2 : right1;
+	height = bottom1 < bottom2 ? bottom2 : bottom1;
+}
+
+void FillRect(CCanvas &canv, CCRectangle const &rect, char code)
+{
+	int left, right, top, bottom;
+	rect.GetCoordinate(left, top, right, bottom);
+	for (int dy = top; dy != bottom; dy++)
+	{
+		for (int dx = left; dx != right; dx++)
+		{
+			canv.SetPixel(dx, dy, code);
+		}
+	}
+}
+
 int main(int argc, char* argv[])
 {
 	/*if (argc != 3)
@@ -145,11 +169,20 @@ int main(int argc, char* argv[])
 	cout << "Rectangle 2:" << endl;
 	PrintDataRectangle(rect2);
 
+	int width, height;
+	SetWidthHeightForCanv(rect1, rect2, width, height);
+	CCanvas canv(width, height);
+	FillRect(canv, rect1, '+');
+	FillRect(canv, rect2, '-');
+
 	if (rect1.Intersect(rect2))
 	{
 		cout << "Intersection rectangle:" << endl;
 		PrintDataRectangle(rect1);
+		FillRect(canv, rect1, '#');
 	}
+	
+	canv.Write(cout);
 	return 0;
 }
 
