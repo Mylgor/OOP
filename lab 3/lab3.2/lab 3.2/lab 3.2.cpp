@@ -58,7 +58,7 @@ int ParseTheString(string &str, CCRectangle &rect)
 			return 0;
 		}
 	}
-	
+
 	size_t it2 = str.find("Move");
 	if (it2 != string::npos)
 	{
@@ -69,7 +69,7 @@ int ParseTheString(string &str, CCRectangle &rect)
 			return 0;
 		}
 	}
-	
+
 	size_t it3 = str.find("Scale");
 	if (it3 != string::npos)
 	{
@@ -86,7 +86,7 @@ int ParseTheString(string &str, CCRectangle &rect)
 }
 
 bool ReadFromFile(string const &input, CCRectangle &currentRect)
-{		
+{
 	ifstream inputFile(input);
 	if (inputFile.fail())
 	{
@@ -109,7 +109,6 @@ void PrintDataRectangle(CCRectangle const &rect)
 {
 	int left, right, top, bottom;
 	rect.GetCoordinate(left, top, right, bottom);
-
 	cout << "\tLeft top: (" << left << "; " << top << ")" << endl;
 	cout << "\tSize: " << rect.GetWidth() << " * " << rect.GetHeight() << endl;
 	cout << "\tRight bottom: (" << right << "; " << bottom << ")" << endl;
@@ -145,8 +144,8 @@ int main(int argc, char* argv[])
 {
 	/*if (argc != 3)
 	{
-		cout << "Must be 3 arguments" << endl;
-		return 1;
+	cout << "Must be 3 arguments" << endl;
+	return 1;
 	}*/
 	string inputFile1 = "input1.txt";
 	string inputFile2 = "input2.txt";
@@ -163,7 +162,7 @@ int main(int argc, char* argv[])
 	{
 		return 1;
 	}
-	
+
 	cout << "Rectangle 1:" << endl;
 	PrintDataRectangle(rect1);
 	cout << "Rectangle 2:" << endl;
@@ -181,8 +180,7 @@ int main(int argc, char* argv[])
 		PrintDataRectangle(rect1);
 		FillRect(canv, rect1, '#');
 	}
-	
+
 	canv.Write(cout);
 	return 0;
 }
-

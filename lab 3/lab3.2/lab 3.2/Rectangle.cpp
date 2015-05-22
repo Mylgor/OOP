@@ -1,12 +1,11 @@
 #include "stdafx.h"
-#include "CRectangle.h"
-
+#include "Rectangle.h"
 
 CCRectangle::CCRectangle(int left, int top, int width, int height)
 {
 	width < 0 ? m_width = 0 : m_width = width;
 	height < 0 ? m_height = 0 : m_height = height;
-	
+
 	left < 0 ? m_coordinate.left = 0 : m_coordinate.left = left;
 	top < 0 ? m_coordinate.top = 0 : m_coordinate.top = top;
 
@@ -58,7 +57,7 @@ void CCRectangle::Scale(int &sx, int &sy)
 	}
 }
 
-bool CCRectangle::Intersect(CCRectangle const& other)
+bool CCRectangle::Intersect(CCRectangle const &other)
 {
 	int leftOther, rightOther, topOther, bottomOther;
 	other.GetCoordinate(leftOther, topOther, rightOther, bottomOther);
@@ -80,7 +79,7 @@ bool CCRectangle::Intersect(CCRectangle const& other)
 	m_height = 0;
 	Update();
 	return false;
-	
+
 }
 
 void CCRectangle::Update()
@@ -93,70 +92,4 @@ void CCRectangle::Update()
 
 CCRectangle::~CCRectangle()
 {
-}
-
-
-
-
-CCanvas::CCanvas(unsigned width, unsigned height)
-{
-	m_height = height;
-	m_width = width;
-	for (int i = 0; i < m_height; i++)
-	{
-		for (int j = 0; j < m_width; j++)
-		{
-			m_canvas.push_back(' ');
-		}
-	}
-}
-
-unsigned CCanvas::GetWidth()const
-{
-	return m_width;
-}
-
-unsigned CCanvas::GetHeight()const
-{
-	return m_height;
-}
-
-void CCanvas::Clear(char code)
-{
-	for (int i = 0; i < m_height; i++)
-	{
-		for (int j = 0; j < m_width; j++)
-		{
-			if ((code < 0) && (code > ' '))
-			{
-				m_canvas[i * m_width + j] = ' ';
-			}
-		}
-	}
-}
-
-void CCanvas::SetPixel(int x, int y, char code)
-{
-	m_canvas[y * m_width + x] = code;
-}
-
-char CCanvas::GetPixel(int x, int y)const
-{
-	if ((x < 0) || (x > m_width) || (y < 0) || (y > m_height))
-	{
-		return ' ';
-	}
-	return m_canvas[y * m_width + x];
-}
-
-void CCanvas::Write(std::ostream & ostream)const
-{
-	for (int i = 0; i < m_height; i++)
-	{
-		for (int j = 0; j < m_width; j++)
-		{
-			ostream << m_canvas[i * m_width + j];
-		}
-		ostream << std::endl;
-	}
 }
