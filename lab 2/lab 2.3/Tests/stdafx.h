@@ -10,7 +10,8 @@
 #include <stdio.h>
 #include <tchar.h>
 
-
+#include <iostream>
+#include <Windows.h>
 #define BOOST_TEST_MODULE TheApplicationTestModule
 #define BOOST_TEST_INCLUDED
 #pragma warning(disable:4702)

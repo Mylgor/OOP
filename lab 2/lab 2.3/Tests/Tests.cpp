@@ -1,23 +1,22 @@
+// Tests.cpp: определяет точку входа для консольного приложения.
+//
+
 #include "stdafx.h"
 #include "..\WordCount\WokWithMap.h"
 
-bool CheckingMap(string const &arg1, std::map<string, int> const &arg2)
+BOOST_AUTO_TEST_CASE(Test)
 {
-	std::map<string, int> arr = FrequencyOfCccurrenceOfWords(arg1);
-	return (arr == arg2);
-}
+	map<string, int> wordsMass;
+	BOOST_CHECK(wordsMass.size() == 0);
+	wordsMass = CalculFrequencyOfCccurrenceOfWords("Abc ABC abc");
+	BOOST_CHECK(wordsMass.size() == 1);
+	BOOST_CHECK((*wordsMass.begin()).first == "Abc");
+	BOOST_CHECK((*wordsMass.begin()).second == 3);
 
-BOOST_AUTO_TEST_CASE(CheckWork)
-{
-	BOOST_CHECK(CheckingMap("ice ice ice fire fire", {{ "ice", 3 }, { "fire", 2 }}));
-}
-
-BOOST_AUTO_TEST_CASE(EmptyStr)
-{
-	BOOST_CHECK(CheckingMap("", {}));
-}
-
-BOOST_AUTO_TEST_CASE(LeftSymbols)
-{
-	BOOST_CHECK(CheckingMap("   !!! ..   \n \n \t \t ", {}));
+	wordsMass = CalculFrequencyOfCccurrenceOfWords("dima lena sasha");
+	for (auto it = wordsMass.begin(); it != wordsMass.end(); it++)
+	{
+		BOOST_CHECK_EQUAL((*it).first == "dima" || (*it).first == "lena" || (*it).first == "sasha", true);
+		BOOST_CHECK((*it).second == 1);
+	}
 }

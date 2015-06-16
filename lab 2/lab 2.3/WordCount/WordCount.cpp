@@ -6,12 +6,11 @@
 
 int main(int argc, char* argv[])
 {
-	setlocale(LC_ALL, "Russian");
 	string str;
 	cout << "enter offer: ";
 	getline(cin, str);
 	
-	map<string, int> wordsMass = FrequencyOfCccurrenceOfWords(str);
+	map<string, int> wordsMass = CalculFrequencyOfCccurrenceOfWords(str);
 	PrintMap(wordsMass);
 
 	return 0;

@@ -5,22 +5,42 @@ bool isWord(char const &sym)
 {
 	if ((sym >= 'a' && sym <= 'z') || (sym >= 'A' && sym <= 'Z'))
 		return true;
+	if ((sym >= 'à' && sym <= 'ÿ') || (sym >= 'À' && sym <= 'ß'))
+		return true;
 	return false;
+}
+
+string UpWord(string const &word)
+{
+	string checkWord;
+	for (int i = 0; i < (int)word.size(); i++)
+	{
+		checkWord += (char)toupper(word[i]);
+	}
+	return checkWord;
 }
 
 void AddWord(string const &word, map<string, int> &arr)
 {
-	if (arr.find(word) != arr.end())
+	bool isAdd = false;
+	if (!word.empty())
 	{
-		arr[word]++;
-	}
-	else
-	{
-		arr.insert(pair<string, int>(word, 1));
+		for (auto it = arr.begin(); it != arr.end() && !isAdd; it++)
+		{
+			if (UpWord(word) == UpWord((*it).first))
+			{
+				(*it).second++;
+				isAdd = true;
+			}
+		}
+		if (!isAdd)
+		{
+			arr.insert(pair<string, int>(word, 1));
+		}
 	}
 }
 
-map<string, int> FrequencyOfCccurrenceOfWords(string const &str)
+map<string, int> CalculFrequencyOfCccurrenceOfWords(string const &str)
 {
 	map<string, int> arrWords;
 	string word;
@@ -30,18 +50,18 @@ map<string, int> FrequencyOfCccurrenceOfWords(string const &str)
 	{
 		if (isWord(str[i]))
 		{
-			while ((str[i] != ' ') && (str[i] != '\n') && (str[i] != '\t') && (i < (int)str.size()))
-			{
-				word += str[i];
-				i++;
-			}
-			if (!word.empty())
-				AddWord(word, arrWords);
+			word += str[i];
+		}
+		else
+		{
+			AddWord(word, arrWords);
 			word.erase();
 		}
 		i++;
 	}
 
+	AddWord(word, arrWords);
+	word.erase();
 	return arrWords;
 }
 
