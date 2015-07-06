@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "CBody.h"
 
+
+
 void CheckParam(double &param)
 {
 	cin >> param;
@@ -72,11 +74,11 @@ int InputData()
 	return answer;
 }
 
-void PrintLeaderFigures(vector<CCBody> &mainFigures)
+void PrintLeaderFigures(vector<shared_ptr<CCBody>> &mainFigures)
 {
 	cout << endl << "Тело с наименьшей весом в воде:" << endl;
-	mainFigures[0].GetData(cout);
+	(*mainFigures[0]).GetData(cout);
 
-	cout << "Тело с наибольшей массой:" << endl;
-	mainFigures[1].GetData(cout);
+	cout << endl << "Тело с наибольшей массой:" << endl;
+	(*mainFigures[1]).GetData(cout);
 }

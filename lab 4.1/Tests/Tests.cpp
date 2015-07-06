@@ -9,8 +9,8 @@ BOOST_AUTO_TEST_CASE(Sphere)
 	CCSphere tempBody(2,3);
 	BOOST_CHECK(tempBody.GetRadius() == 2);
 	BOOST_CHECK(tempBody.GetDensity() == 3);
-	BOOST_CHECK((int)tempBody.GetVolume() == 33);
-	BOOST_CHECK((int)tempBody.GetWeight() == 100);
+	BOOST_CHECK(int(tempBody.GetVolume() * 10.0) / 10.0 == 33.5);
+	BOOST_CHECK(int(tempBody.GetWeight() * 10.0) / 10.0 == 100.5);
 }
 
 BOOST_AUTO_TEST_CASE(Parallelepiped)
@@ -30,8 +30,8 @@ BOOST_AUTO_TEST_CASE(Cone)
 	BOOST_CHECK(tempBody.GetRadius() == 5);
 	BOOST_CHECK(tempBody.GetHeight() == 10);
 	BOOST_CHECK(tempBody.GetDensity() == 6);
-	BOOST_CHECK((int)tempBody.GetVolume() == 261);
-	BOOST_CHECK((int)tempBody.GetWeight() == 1570);
+	BOOST_CHECK(int(tempBody.GetVolume() * 10.0) / 10.0 == 261.7);
+	BOOST_CHECK(int(tempBody.GetWeight() * 10.0) / 10.0 == 1570.7);
 }
 
 BOOST_AUTO_TEST_CASE(Cylinder)
@@ -40,8 +40,6 @@ BOOST_AUTO_TEST_CASE(Cylinder)
 	BOOST_CHECK(tempBody.GetRadius() == 2);
 	BOOST_CHECK(tempBody.GetHeight() == 4);
 	BOOST_CHECK(tempBody.GetDensity() == 6);
-	double a = tempBody.GetWeight();
-	a = tempBody.GetVolume();
-	BOOST_CHECK((int)tempBody.GetVolume() == 50);
-	BOOST_CHECK((int)tempBody.GetWeight() == 301);
+	BOOST_CHECK(int(tempBody.GetVolume() * 10.0) / 10.0 == 50.2);
+	BOOST_CHECK(int(tempBody.GetWeight() * 10.0) / 10.0 == 301.5);
 }

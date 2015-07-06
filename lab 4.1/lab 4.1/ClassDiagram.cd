@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CCBody">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAGAAAAgABAAAAAAAAAAAAKAAQAAAAAAABAAA=</HashCode>
+      <FileName>CBody.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CCSphere" Collapsed="true">
+    <Position X="1.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAgAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>CBody.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CCParallelepiped" Collapsed="true">
+    <Position X="8" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgIAAAAAAAAAAABAAAAAABAAAAAAgCAAAAAAEAAAAA=</HashCode>
+      <FileName>CBody.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CCone" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAgABAAAAAABAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>CBody.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CCylinder" Collapsed="true">
+    <Position X="5.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAIAAABAAAAAABAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>CBody.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

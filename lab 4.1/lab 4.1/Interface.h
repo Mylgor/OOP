@@ -7,4 +7,4 @@ double InputHeight(double &height);
 double InputWidth(double &width);
 double InputDensity(double &density);
 
-void PrintLeaderFigures(vector<CCBody> &mainFigures);
+void PrintLeaderFigures(vector<shared_ptr<CCBody>> &mainFigures);
